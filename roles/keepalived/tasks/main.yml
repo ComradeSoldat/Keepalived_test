@@ -3,7 +3,6 @@
   apt:
     name: keepalived
     state: present
-    update_cache: yes
  
 - name: Keepalived Configuration
   template:
