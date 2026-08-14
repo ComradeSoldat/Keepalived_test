@@ -1,0 +1,27 @@
+global_defs {
+    router_id {{ ans_hostname | default(inventory_hostname) }}
+}
+
+vrrp_instance VI_1 {
+    interface {{ keepalived_interface }}
+    virtual_router_id {{ keepalived_virtual_router_id }}
+    
+    {% if inventory_hostname == groups['keepalived_cluster'][0] %}
+    state MASTER
+    priority 101
+    {% else %}
+    state BACKUP
+    priority {{ 100 - groups['keepalived_cluster'].index(inventory_hostname) }}
+    {% endif %}
+
+    advert_int 1
+
+    authentication {
+        auth_type PASS
+        auth_pass {{ keepalived_auth_pass }}
+    }
+
+    virtual_ipaddress {
+        {{ keepalived_virtual_ip }}
+    }
+}
