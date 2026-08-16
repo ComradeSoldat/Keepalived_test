@@ -2,6 +2,14 @@ global_defs {
     router_id {{ ans_hostname | default(inventory_hostname) }}
 }
 
+vrrp_script check_rabbitmq {
+    script "/usr/bin/rabbitmqctl ping"
+    interval 5
+    weight -1
+    fall 1
+    rise 1
+}
+
 vrrp_instance VI_1 {
     interface {{ keepalived_interface }}
     virtual_router_id {{ keepalived_virtual_router_id }}
