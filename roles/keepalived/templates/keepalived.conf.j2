@@ -5,7 +5,7 @@ global_defs {
 }
 
 vrrp_script check_rabbitmq {
-    script "/bin/bash -c '< /dev/tcp/127.0.0.1/5672'"
+    script "/usr/sbin/rabbitmqctl ping" 
     interval 2
     timeout 2
     weight -10
