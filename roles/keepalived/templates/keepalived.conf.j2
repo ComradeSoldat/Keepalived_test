@@ -5,7 +5,7 @@ global_defs {
 }
 
 vrrp_script check_rabbitmq {
-    script "/bin/nc -z 127.0.0.1 5672"
+    script "/bin/bash -c '< /dev/tcp/127.0.0.1/5672'"
     interval 2
     timeout 2
     weight -10
