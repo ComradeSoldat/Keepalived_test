@@ -1,13 +1,15 @@
 global_defs {
     router_id {{ ans_hostname | default(inventory_hostname) }}
+    script_user root
+    enable_script_security
 }
 
 vrrp_script check_rabbitmq {
-    script "/usr/bin/rabbitmqctl ping"
-    interval 5
-    weight -1
-    fall 1
-    rise 1
+    script "/usr/sbin/rabbitmqctl ping"
+    interval 2
+    weight -10
+    fall 2
+    rise 2
 }
 
 vrrp_instance VI_1 {
