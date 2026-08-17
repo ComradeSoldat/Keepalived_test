@@ -34,4 +34,7 @@ vrrp_instance VI_1 {
     virtual_ipaddress {
         {{ keepalived_virtual_ip }}
     }
+    track_script {
+        check_rabbitmq
+    }
 }
